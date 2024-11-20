@@ -1,3 +1,10 @@
+drop database if exists ssaf_ssaf;
+select @@global.transaction_isolation, @@transaction_isolation;
+set @@transaction_isolation="read-committed";
+
+create database ssaf_ssaf;
+use ssaf_ssaf;
+
 -- Users 테이블 생성
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,3 +85,5 @@ CREATE TABLE MenuAllergenMapping (
     FOREIGN KEY (menu_id) REFERENCES Menus(menu_id),
     FOREIGN KEY (allergen_id) REFERENCES Allergens(allergen_id)
 );
+
+commit;
