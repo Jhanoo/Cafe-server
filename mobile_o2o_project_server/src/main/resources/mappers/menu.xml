@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.cafe.model.dao.MenuDao">
+
+    <select id="getAllMenus" resultType="Menu">
+    	SELECT * FROM Menus
+    </select>
+    
+    <select id="getMenuById" parameterType="Long" resultType="Menu">
+        SELECT * FROM Menus WHERE menu_id = #{menuId}
+    </select>
+    
+    <insert id="insertMenu" parameterType="Menu">
+        INSERT INTO Menus (name, price, category, image_url, description, average_rating, review_count)
+        VALUES (#{name}, #{price}, #{category}, #{imageUrl}, #{description}, #{averageRating}, #{reviewCount})
+    </insert>
+
+	<delete id="deleteMenu" parameterType="Long">
+		DELETE FROM Menus WHERE menu_id = #{menuId}
+	</delete>
+    
+    
+</mapper>

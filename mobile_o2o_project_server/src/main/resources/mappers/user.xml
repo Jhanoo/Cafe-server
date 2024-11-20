@@ -1,35 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
-<mapper namespace="com.ssafy.cafe.model.dao.UserDao">
-	<insert id="insert" parameterType="User">
-		INSERT INTO t_user
-		    (id, 
-		    name, 
-		    pass)
-		VALUES
-		    (#{id}, 
-		    #{name}, 
-		    #{pass})
-	</insert>
-	
-	<update id="updateStamp" parameterType="User">
-        UPDATE t_user
-        SET
-            stamps = stamps + #{stamps}
-        WHERE id = #{id}
-    </update>
-    
-	<select id="selectById" parameterType="string" resultType="User">
-		SELECT * FROM t_user
-		WHERE id = #{id}
-	</select>
 
-    <select id="selectByUser" parameterType="User" resultType="User">
-        SELECT * FROM t_user
-        WHERE id = #{id} 
-        and pass = #{pass}
+<mapper namespace="com.ssafy.cafe.model.dao.UserDao">
+
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO Users (username, password, email, birthday, points)
+        VALUES (#{username}, #{password}, #{email}, #{birthday}, #{points})
+	</insert>
+    
+    <select id="getAllUsers" resultType="User">
+    	SELECT * FROM Users
     </select>
+    
+	<select id="getUserByEmail" parameterType="String" resultType="User">
+		SELECT * FROM Users WHERE email = #{email}
+	</select>
+	
+    <select id="getUserById" parameterType="Long" resultType="User">
+        SELECT * FROM Users WHERE user_id = #{userId}
+    </select>
+
+    <select id="login" parameterType="map" resultType="User">
+        SELECT * FROM Users
+        WHERE username = #{username} AND password = #{password}
+    </select>
+    
+    <delete id="deleteUser" parameterType="Long">
+        DELETE FROM Users WHERE user_id = #{userId}
+    </delete>
+    
+    <select id="isUsedEmail" parameterType="String" resultType="User">
+        SELECT * FROM Users WHERE email = #{email}
+    </select>
+    
+    <update id="updatePoints" parameterType="map">
+        UPDATE Users 
+        SET points = #{points} 
+        WHERE user_id = #{userId}
+    </update>
+    	
+    <update id="updateStamps" parameterType="User">
+        UPDATE Users 
+        SET stamps = #{stamps}
+        WHERE user_id = #{user_id}
+    </update>
+    	
+    <select id="getAllergensByUserId" parameterType="Long" resultType="String">
+        SELECT a.* 
+        FROM UserAllergens ua
+        JOIN Allergens a ON ua.allergen_id = a.allergen_id
+        WHERE ua.user_id = #{userId}
+    </select>
+
+    <!-- 사용자의 알레르기 추가 -->
+    <insert id="addUserAllergen" parameterType="map">
+        INSERT INTO UserAllergens (user_id, allergen_id)
+        VALUES (#{userId}, #{allergenId})
+    </insert>
+
+    <!-- 사용자의 특정 알레르기 제거 -->
+    <delete id="deleteUserAllergen" parameterType="map">
+        DELETE FROM UserAllergens
+        WHERE user_id = #{userId} AND allergen_id = #{allergenId}
+    </delete>
     	
 </mapper>

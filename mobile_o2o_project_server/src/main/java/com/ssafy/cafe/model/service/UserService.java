@@ -1,42 +1,25 @@
 package com.ssafy.cafe.model.service;
 
+import java.util.List;
+
 import com.ssafy.cafe.model.dto.User;
 
-
 public interface UserService {
-    /**
-     * 사용자 정보를 DB에 저장한다.
-     * 
-     * @param user
-     */
-    public int join(User user);
+	public int insertUser(User user);
 
-    /**
-     * id, pass에 해당하는 User 정보를 반환한다.
-     * 
-     * @param id
-     * @param pass
-     * @return
-     * 조회된 User 정보를 반환한다.
-     */
-    public User login(String id, String pass);
-    
-    
-    /**
-     * 해당 아이디가 이미 사용 중인지를 반환한다.
-     * @param id
-     * @return
-     */
-    public boolean isUsedId(String id);
+	public User login(String email, String password);
 
-    /**
-     * id 에 해당하는 User 정보를 반환한다.
-     * 
-     * @param id
-     * @return
-     * 조회된 User 정보를 반환한다.
-     */
-    public User selectUser(String id);
-    
-    
+	public boolean isUsedEmail(String email);
+
+	public User getUserByEmail(String email);
+
+	public User getUserById(Long userId);
+
+	public List<User> getAllUsers();
+
+	public void deleteUser(Long userId);
+
+	public void updatePoints(Long userId, int points);
+
+	public void updateStamps(Long userId, int stamps);
 }

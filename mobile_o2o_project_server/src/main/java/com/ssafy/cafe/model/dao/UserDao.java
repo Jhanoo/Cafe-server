@@ -1,34 +1,35 @@
 package com.ssafy.cafe.model.dao;
 
+import java.util.List;
+
 import com.ssafy.cafe.model.dto.User;
 
 public interface UserDao {
-    /**
-     * 사용자 정보를 추가한다.
-     * @param user
-     * @return
-     */
-    int insert(User user);
 
-    /**
-     * 사용자의 Stamp 정보를 수정한다.
-     * @param user
-     * @return
-     */
-    int updateStamp(User user);
-    
-    /**
-     * 사용자 정보를 조회한다.
-     * @param userId
-     * @return
-     */
+	List<User> getAllUsers();
 
-    User selectById(String userId);
+	User getUserByEmail(String email);
+	
+    User getUserById(Long userId);
 
-    /**
-     * 사용자 정보를 조회한다.
-     * @param user
-     * @return
-     */
-    User selectByUser(User user);
+	int insertUser(User user);
+
+	void deleteUser(Long userId);
+
+	User login(String email, String password);
+
+	User isUsedEmail(String email);
+
+	void updateStamps(Long userId, int stamps);
+	
+    void updatePoints(Long userId, int points);
+
+	// 특정 사용자의 알레르기 정보 가져오기
+	List<String> getAllergensByUserId(Long userId);
+
+	// 사용자의 알레르기 추가
+	void addUserAllergen(Long userId, Long allergenId);
+
+	// 사용자의 특정 알레르기 제거
+	void deleteUserAllergen(Long userId, Long allergenId);
 }

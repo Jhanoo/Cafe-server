@@ -26,7 +26,7 @@ public class MobileThroughProjectApplication {
    @Bean
     public OpenAPI postsApi() {
         Info info = new Info()
-               .title("SSAFY Cafe Rest API")
+               .title("SSAF SSAF Rest API")
                .description("<h3>SSAFY Cafe에서 제공되는 Rest api의 문서 제공</h3><br>"
                   		+ "<img src=\"/imgs/ssafy_logo.png\" width=\"200\">")
                .contact(new Contact().name("ssafy").email("ssafy@ssafy.com"))

@@ -1,88 +1,67 @@
 package com.ssafy.cafe.model.dto;
 
 import java.util.Date;
-import java.util.List;
 
 public class Order {
-    private Integer id;
-    private String userId;
-    private String orderTable;
-    private Date orderTime;
-    private Character completed;
-    
-    private List<OrderDetail> details ;
-    
-    public Order(Integer id, String userId, String orderTable, Date orderTime, Character complited) {
-        this.id = id;
-        this.userId = userId;
-        this.orderTable = orderTable;
-        this.orderTime = orderTime;
-        this.completed = complited;
-    }
+	private Long orderId;
+	private Long userId;
+	private int totalPrice;
+	private String orderStatus; // 'Pending', 'Completed', 'Canceled'
+	private Date createdAt;
 
-    public Order(String userId, String orderTable, Date orderTime, Character complited) {
-        this.userId = userId;
-        this.orderTable = orderTable;
-        this.orderTime = orderTime;
-        this.completed = complited;
-    }
-    
-    public Order() {}
-
-        
-	public Integer getId() {
-		return id;
+	public Order(Long orderId, Long userId, int totalPrice, String orderStatus, Date createdAt) {
+		super();
+		this.orderId = orderId;
+		this.userId = userId;
+		this.totalPrice = totalPrice;
+		this.orderStatus = orderStatus;
+		this.createdAt = createdAt;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Long getOrderId() {
+		return orderId;
 	}
 
-	public String getUserId() {
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	public String getOrderTable() {
-		return orderTable;
+	public int getTotalPrice() {
+		return totalPrice;
 	}
 
-	public void setOrderTable(String orderTable) {
-		this.orderTable = orderTable;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
-	public Date getOrderTime() {
-		return orderTime;
+	public String getOrderStatus() {
+		return orderStatus;
 	}
 
-	public void setOrderTime(Date orderTime) {
-		this.orderTime = orderTime;
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 
-	public Character getCompleted() {
-		return completed;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCompleted(Character completed) {
-		this.completed = completed;
-	}
-
-	public List<OrderDetail> getDetails() {
-		return details;
-	}
-
-	public void setDetails(List<OrderDetail> details) {
-		this.details = details;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", userId=" + userId + ", orderTable=" + orderTable + ", orderTime=" + orderTime
-				+ ", completed=" + completed + ", details=" + details + "]";
+		return "Order [orderId=" + orderId + ", userId=" + userId + ", totalPrice=" + totalPrice + ", orderStatus="
+				+ orderStatus + ", createdAt=" + createdAt + "]";
 	}
-    
-    
+
 }

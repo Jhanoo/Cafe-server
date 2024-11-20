@@ -1,69 +1,55 @@
 package com.ssafy.cafe.model.dto;
 
 public class OrderDetail {
-    private Integer id;
-    private Integer orderId;
-    private Integer productId;
-    private Integer quantity;
-    
-    public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity) {
-        super();
-        this.id = id;
-        this.orderId = orderId;
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-    
-    public OrderDetail(Integer productId, Integer quantity) {
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-    
-    public OrderDetail(Integer orderId, Integer productId, Integer quantity) {
-        this.orderId = orderId;
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-    
-    public OrderDetail() {}
+	private Long orderDetailId;
+	private Long orderId;
+	private Long menuId;
+	private int quantity;
 
-	public Integer getId() {
-		return id;
+	public OrderDetail(Long orderDetailId, Long orderId, Long menuId, int quantity) {
+		super();
+		this.orderDetailId = orderDetailId;
+		this.orderId = orderId;
+		this.menuId = menuId;
+		this.quantity = quantity;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Long getOrderDetailId() {
+		return orderDetailId;
 	}
 
-	public Integer getOrderId() {
+	public void setOrderDetailId(Long orderDetailId) {
+		this.orderDetailId = orderDetailId;
+	}
+
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Integer orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
-	public Integer getProductId() {
-		return productId;
+	public Long getMenuId() {
+		return menuId;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setMenuId(Long menuId) {
+		this.menuId = menuId;
 	}
 
-	public Integer getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity
-				+ "]";
+		return "OrderDetail [orderDetailId=" + orderDetailId + ", orderId=" + orderId + ", menuId=" + menuId
+				+ ", quantity=" + quantity + "]";
 	}
-    
-    
+
 }
