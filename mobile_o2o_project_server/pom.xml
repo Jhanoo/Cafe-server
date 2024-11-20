@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ssafy</groupId>
-	<artifactId>otocafe</artifactId>
+	<artifactId>SSafSSaf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mobile_through_project_final_realserver</name>
 	<packaging>jar</packaging>
@@ -72,6 +72,12 @@
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
 			<version>4.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 
