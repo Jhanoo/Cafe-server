@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.model.dto.Menu;
 import com.ssafy.cafe.model.service.MenuService;
+import com.ssafy.cafe.model.service.ReviewService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -22,8 +23,12 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequestMapping("/menu")
 @CrossOrigin("*")
 public class MenuController {
+	
 	@Autowired
 	MenuService menuService;
+	
+	@Autowired
+	ReviewService reviewService;
 
 	@GetMapping
 	public ResponseEntity<List<Menu>> getAllMenus() {
@@ -44,6 +49,7 @@ public class MenuController {
 
 	@DeleteMapping("/{menuId}")
 	public ResponseEntity<Void> deleteMenu(@PathVariable Long menuId) {
+		reviewService.deleteAllReviewsByMenuId(menuId);
 		menuService.deleteMenu(menuId);
 		return ResponseEntity.ok().build();
 	}

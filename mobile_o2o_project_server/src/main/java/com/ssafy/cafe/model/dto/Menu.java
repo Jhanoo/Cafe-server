@@ -1,6 +1,8 @@
 package com.ssafy.cafe.model.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
 	private Long menuId;
@@ -11,6 +13,8 @@ public class Menu {
 	private String description;
 	private double averageRating;
 	private int reviewCount;
+
+	private List<Review> reviews = new ArrayList<>();
 
 	public Menu(Long menuId, String name, BigDecimal price, String category, String imageUrl, String description,
 			double averageRating, int reviewCount) {
@@ -91,6 +95,14 @@ public class Menu {
 
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.ssafy.cafe.model.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 	private Long orderId;
@@ -8,6 +10,8 @@ public class Order {
 	private int totalPrice;
 	private String orderStatus; // 'Pending', 'Completed', 'Canceled'
 	private Date createdAt;
+
+	private List<OrderDetail> details = new ArrayList<>();
 
 	public Order(Long orderId, Long userId, int totalPrice, String orderStatus, Date createdAt) {
 		super();
@@ -58,10 +62,18 @@ public class Order {
 		this.createdAt = createdAt;
 	}
 
+	public List<OrderDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<OrderDetail> details) {
+		this.details = details;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", userId=" + userId + ", totalPrice=" + totalPrice + ", orderStatus="
-				+ orderStatus + ", createdAt=" + createdAt + "]";
+				+ orderStatus + ", createdAt=" + createdAt + ", details=" + details + "]";
 	}
 
 }

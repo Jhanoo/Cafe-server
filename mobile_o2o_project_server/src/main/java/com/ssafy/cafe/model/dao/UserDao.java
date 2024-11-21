@@ -6,7 +6,7 @@ import com.ssafy.cafe.model.dto.User;
 
 public interface UserDao {
 
-	List<User> getAllUsers();
+	List<User> getAllUsers(); // 필요한가?
 
 	User getUserByEmail(String email);
 	
@@ -20,16 +20,15 @@ public interface UserDao {
 
 	User isUsedEmail(String email);
 
+	// 스탬프, 포인트
 	void updateStamps(Long userId, int stamps);
 	
     void updatePoints(Long userId, int points);
 
-	// 특정 사용자의 알레르기 정보 가져오기
+    // 알러지
 	List<String> getAllergensByUserId(Long userId);
 
-	// 사용자의 알레르기 추가
 	void addUserAllergen(Long userId, Long allergenId);
 
-	// 사용자의 특정 알레르기 제거
 	void deleteUserAllergen(Long userId, Long allergenId);
 }

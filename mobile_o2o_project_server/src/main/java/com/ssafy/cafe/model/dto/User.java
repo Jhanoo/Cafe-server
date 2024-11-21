@@ -12,7 +12,9 @@ public class User {
 	private Date birthday;
 	private int points;
 	private int stamps;
+
 	private List<CartItem> shoppingCart = new ArrayList<>();
+//	private List<Allergen> allergens = new ArrayList<>();
 
 	public User(Long userId, String name, String password, String email, Date birthday, int points, int stamps) {
 		super();
@@ -95,7 +97,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", password=" + password + ", email=" + email
-				+ ", birthday=" + birthday + ", points=" + points + ", stamps=" + stamps + "]";
+				+ ", birthday=" + birthday + ", points=" + points + ", stamps=" + stamps + ", shoppingCart="
+				+ shoppingCart + "]";
 	}
 
 }

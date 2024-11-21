@@ -27,24 +27,19 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequestMapping("/order")
 @CrossOrigin("*")
 public class OrderController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    @Autowired
-    private OrderService orderService;
-    
-    @Autowired
-    private OrderDetailService orderDetailService;
-    
-    @PostMapping
-    @Operation(summary="order 객체를 저장하고 추가된 Order의 id를 반환한다.", 
-    		description = "<pre>아래 형태로 입력하면 주문이 입력된다. \r\n"
-    				+"{\r\n"
-    				+ "  \"userId\": \"ssaf\",\r\n"
-    				+ "  \"totalPrice\": \"4000\",\r\n"
-    				+ "  \"orderStatus\": \"Pending\",\r\n"
-    				+ "} "
-					+ "</pre>")
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private OrderDetailService orderDetailService;
+
+	@PostMapping
+	@Operation(summary = "order 객체를 저장하고 추가된 Order의 id를 반환한다.", description = "<pre>아래 형태로 입력하면 주문이 입력된다. \r\n"
+			+ "{\r\n" + "  \"userId\": \"ssaf\",\r\n" + "  \"totalPrice\": \"4000\",\r\n"
+			+ "  \"orderStatus\": \"Pending\",\r\n" + "} " + "</pre>")
 	public ResponseEntity<Long> insertOrder(@RequestBody Order order) {
 		logger.debug("insertOrder", order);
 		orderService.insertOrder(order);
@@ -53,14 +48,30 @@ public class OrderController {
 
 	@GetMapping
 	public ResponseEntity<List<Order>> getOrdersByUserId(Long userId) {
-		return ResponseEntity.ok(orderService.getOrdersByUserId(userId));
+		List<Order> orders = orderService.getOrdersByUserId(userId);
+
+		if (orders != null) {
+			for (Order order : orders) {
+				List<OrderDetail> details = orderDetailService.getOrderDetailsByOrderId(order.getOrderId());
+				order.setDetails(details);
+			}
+		}
+
+		return ResponseEntity.ok(orders);
 	}
-	
+
 	@GetMapping("/{orderId}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long orderId) {
-        return ResponseEntity.ok(orderService.getOrderById(orderId));
-    }
-	
+	public ResponseEntity<Order> getOrderById(@PathVariable Long orderId) {
+		Order order = orderService.getOrderById(orderId);
+
+		if (order != null) {
+			List<OrderDetail> details = orderDetailService.getOrderDetailsByOrderId(order.getOrderId());
+			order.setDetails(details);
+		}
+
+		return ResponseEntity.ok(order);
+	}
+
 	@PutMapping("/{orderId}/status")
 	public ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, String status) {
 		orderService.updateOrderStatus(orderId, status);
@@ -72,10 +83,10 @@ public class OrderController {
 		return ResponseEntity.ok(orderDetailService.getOrderDetailsByOrderId(orderId));
 	}
 
-    @PostMapping("/{orderId}/detail")
-    public ResponseEntity<Void> insertOrderDetail(@RequestBody OrderDetail orderDetail) {
-        orderDetailService.insertOrderDetail(orderDetail);
-        return ResponseEntity.ok().build();
-    }
+	@PostMapping("/{orderId}/detail")
+	public ResponseEntity<Void> insertOrderDetail(@RequestBody OrderDetail orderDetail) {
+		orderDetailService.insertOrderDetail(orderDetail);
+		return ResponseEntity.ok().build();
+	}
 
 }
