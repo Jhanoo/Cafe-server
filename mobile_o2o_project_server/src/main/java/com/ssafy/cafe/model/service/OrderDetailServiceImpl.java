@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.cafe.model.dao.OrderDetailDao;
+import com.ssafy.cafe.model.dto.MenuOption;
 import com.ssafy.cafe.model.dto.OrderDetail;
 
 @Service
@@ -27,6 +28,16 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	@Override
 	public void deleteOrderDetail(Long orderDetailId) {
 		orderDetailDao.deleteOrderDetail(orderDetailId);
+	}
+	
+	@Override
+	public void insertOrderOption(Long orderDetailId, Long optionId) {
+		orderDetailDao.insertOrderOption(orderDetailId, optionId);
+	}
+
+	@Override
+	public List<MenuOption> getOrderOptions(Long orderDetailId) {
+		return orderDetailDao.getOrderOptions(orderDetailId);
 	}
 
 }

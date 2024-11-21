@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.model.dto.Menu;
+import com.ssafy.cafe.model.dto.MenuOption;
+import com.ssafy.cafe.model.service.MenuOptionService;
 import com.ssafy.cafe.model.service.MenuService;
 import com.ssafy.cafe.model.service.ReviewService;
+import com.ssafy.cafe.model.service.ShoppingCartService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -29,6 +32,12 @@ public class MenuController {
 	
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	MenuOptionService menuOptionService;
+	
+	@Autowired
+	ShoppingCartService cartService;
 
 	@GetMapping
 	public ResponseEntity<List<Menu>> getAllMenus() {
@@ -44,12 +53,16 @@ public class MenuController {
 	@PostMapping
 	public ResponseEntity<Void> insertMenu(@RequestBody Menu menu) {
 		menuService.insertMenu(menu);
+		for(MenuOption option : menu.getOptions()) {
+			menuOptionService.insertMenuOption(option);
+		}
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{menuId}")
 	public ResponseEntity<Void> deleteMenu(@PathVariable Long menuId) {
 		reviewService.deleteAllReviewsByMenuId(menuId);
+		menuOptionService.deleteMenuOption(menuId);
 		menuService.deleteMenu(menuId);
 		return ResponseEntity.ok().build();
 	}

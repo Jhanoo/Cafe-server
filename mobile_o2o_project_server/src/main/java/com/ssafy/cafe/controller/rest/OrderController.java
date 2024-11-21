@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.cafe.model.dto.MenuOption;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.OrderDetail;
 import com.ssafy.cafe.model.dto.User;
@@ -57,8 +58,16 @@ public class OrderController {
 		int stamps = userService.getStamps(order.getUserId());
 		int points = userService.getPoints(order.getUserId());
 		
+		
 		List<OrderDetail> details = order.getDetails();
-		for(OrderDetail detail : details) {
+
+		for (OrderDetail detail : details) {
+			orderDetailService.insertOrderDetail(detail);
+			
+			for (MenuOption option : detail.getOptions()) {
+				orderDetailService.insertOrderOption(detail.getOrderDetailId(), option.getOptionId());
+			}
+			
 			stamps += detail.getQuantity();
 		}
 		
@@ -105,7 +114,14 @@ public class OrderController {
 
 	@GetMapping("/{orderId}/detail")
 	public ResponseEntity<List<OrderDetail>> getOrderDetailByOrderId(@PathVariable Long orderId) {
-		return ResponseEntity.ok(orderDetailService.getOrderDetailsByOrderId(orderId));
+		List<OrderDetail> details = orderDetailService.getOrderDetailsByOrderId(orderId);
+		
+		for(OrderDetail detail : details) {
+			List<MenuOption> options = orderDetailService.getOrderOptions(orderId);
+			detail.setOptions(options);
+		}
+		
+		return ResponseEntity.ok(details);
 	}
 
 	@PostMapping("/{orderId}/detail")

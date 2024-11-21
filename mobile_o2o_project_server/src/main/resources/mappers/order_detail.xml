@@ -17,4 +17,16 @@
         DELETE FROM OrderDetails WHERE order_detail_id = #{orderDetailId}
     </delete>
     
+    <insert id="insertOrderOption" parameterType="Map">
+    	INSERT INTO OrderOptions (order_detail_id, option_id)
+    	VALUES (#{orderDetailId}, #{optionId})
+    </insert>
+    
+    <select id="getOrderOptions" parameterType="Long" resultType="MenuOption">
+		SELECT mo.*
+		FROM MenuOptions mo
+		JOIN OrderOptions oo ON mo.option_id = oo.option_id
+		WHERE oo.order_detail_id = #{orderDetailId};
+    </select>
+    
 </mapper>

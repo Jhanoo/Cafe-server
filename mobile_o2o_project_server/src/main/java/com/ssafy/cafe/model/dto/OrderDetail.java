@@ -1,10 +1,15 @@
 package com.ssafy.cafe.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderDetail {
 	private Long orderDetailId;
 	private Long orderId;
 	private Long menuId;
 	private int quantity;
+
+	private List<MenuOption> options = new ArrayList<>();
 
 	public OrderDetail(Long orderDetailId, Long orderId, Long menuId, int quantity) {
 		super();
@@ -44,6 +49,14 @@ public class OrderDetail {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public List<MenuOption> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<MenuOption> options) {
+		this.options = options;
 	}
 
 	@Override
