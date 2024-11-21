@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.cafe.model.dao.AllergenDao">
+    
+    <select id="getAllergen" parameterType="Long" resultType="Allergen">
+        SELECT * FROM Allergens WHERE allergen_id = #{allergenId}
+    </select>
+    
+    <insert id="insertAllergen" parameterType="Allergen">
+        INSERT INTO Allergens (name)
+        VALUES (#{name})
+    </insert>
+
+	<delete id="deleteMenuOption" parameterType="Long">
+		DELETE FROM Allergens WHERE allergen_id = #{allergenId}
+	</delete>
+    
+    <update id="updateAllergen" parameterType="Allergen">
+        UPDATE Allergens 
+        SET name = #{name}
+        WHERE allergen_id = #{allergenId}
+    </update>
+    
+    <insert id="insertAllergenToMenu" parameterType="Map">
+    	INSERT INTO MenuAllergenMapping (menu_id, allergen_id)
+    	VALUES (#{menuId}, #{allergenId})
+    </insert>
+    
+    <delete id="deleteAllergenMappingByMenuId" parameterType="Long">
+    	DELETE FROM MenuAllergenMapping WHERE menu_id = #{menuId}
+    </delete>
+    
+    <insert id="insertAllergenToUser" parameterType="Map">
+    	INSERT INTO UserAllergens (user_id, allergen_id)
+    	VALUES (#{userId}, #{allergenId})
+    </insert>
+    
+    <delete id="deleteAllergenMappingByUser" parameterType="Map">
+    	DELETE FROM UserAllergens WHERE user_id = #{userId} and allergen_id = #{allergenId}
+    </delete>
+    
+    <select id="getAllergensByUserId" parameterType="Long" resultType="Allergen">
+		SELECT a.*
+		FROM Allergens a
+		JOIN UserAllergens ua ON a.allergen_id = ua.allergen_id
+		WHERE ua.user_id = #{userId};
+    </select>
+    
+</mapper>

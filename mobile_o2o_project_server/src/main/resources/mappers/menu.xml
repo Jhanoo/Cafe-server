@@ -21,5 +21,12 @@
 		DELETE FROM Menus WHERE menu_id = #{menuId}
 	</delete>
     
+    <select id="getMenuAverageRating" parameterType="Long" resultType="Double">
+    	SELECT IFNULL(ROUND(AVG(mr.rating), 2), 0) AS average_rating
+		FROM Menus m
+		LEFT JOIN MenuReviews mr ON m.menu_id = mr.menu_id
+		WHERE m.menu_id = #{menuId}
+		GROUP BY m.menu_id, m.name;
+    </select>
     
 </mapper>

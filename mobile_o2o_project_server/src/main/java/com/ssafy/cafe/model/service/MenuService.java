@@ -6,11 +6,13 @@ import com.ssafy.cafe.model.dto.Menu;
 
 public interface MenuService {
 
-	List<Menu> getAllMenus();
+	public List<Menu> getAllMenus();
 
-	Menu getMenuById(Long menuId);
+	public Menu getMenuById(Long menuId);
 
-	int insertMenu(Menu menu);
+	public int insertMenu(Menu menu);
 
-	int deleteMenu(Long menuId);
+	public int deleteMenu(Long menuId);
+
+	public double getMenuAverageRating(Long menuId);
 }

@@ -13,4 +13,5 @@ public interface MenuDao {
 
 	int deleteMenu(Long menuId);
 
+	double getMenuAverageRating(Long menuId);
 }

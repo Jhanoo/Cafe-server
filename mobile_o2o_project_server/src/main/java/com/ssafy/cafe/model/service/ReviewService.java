@@ -6,15 +6,15 @@ import com.ssafy.cafe.model.dto.Review;
 
 public interface ReviewService {
 
-	Review getReviewById(Long reviewId);
+	public Review getReviewById(Long reviewId);
 
-	List<Review> getReviewByMenuId(Long menuId);
+	public List<Review> getReviewByMenuId(Long menuId);
 
-	void insertReview(Review review);
+	public void insertReview(Review review);
 
-	void updateReview(Review review);
+	public void updateReview(Review review);
 
-	void deleteReview(Long reviewId);
+	public void deleteReview(Long reviewId);
 	
-	void deleteAllReviewsByMenuId(Long menuId);
+	public void deleteAllReviewsByMenuId(Long menuId);
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.cafe.model.dao.ShoppingCartMapper">
+<mapper namespace="com.ssafy.cafe.model.dao.ShoppingCartDao">
     <select id="getCartByUserId" parameterType="Long" resultType="CartItem">
         SELECT * FROM ShoppingCart WHERE user_id = #{userId}
     </select>

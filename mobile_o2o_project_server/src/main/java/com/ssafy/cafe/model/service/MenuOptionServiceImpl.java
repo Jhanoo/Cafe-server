@@ -8,7 +8,7 @@ import com.ssafy.cafe.model.dao.MenuOptionDao;
 import com.ssafy.cafe.model.dto.MenuOption;
 
 @Service
-public class MenuOptionServcieImpl implements MenuOptionService {
+public class MenuOptionServiceImpl implements MenuOptionService {
 
 	private MenuOptionDao menuOptionDao;
 	

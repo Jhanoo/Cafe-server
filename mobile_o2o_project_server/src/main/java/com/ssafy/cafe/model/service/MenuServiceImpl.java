@@ -33,5 +33,10 @@ public class MenuServiceImpl implements MenuService {
 	public int deleteMenu(Long menuId) {
 		return menuDao.deleteMenu(menuId);
 	}
+
+	@Override
+	public double getMenuAverageRating(Long menuId) {
+		return menuDao.getMenuAverageRating(menuId);
+	}
 	
 }

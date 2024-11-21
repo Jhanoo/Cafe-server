@@ -11,14 +11,14 @@ public class Menu {
 	private String category;
 	private String imageUrl;
 	private String description;
-	private double averageRating;
-	private int reviewCount;
 
+	private double averageRating;
+
+	private List<Allergen> allergens = new ArrayList<>();
 	private List<MenuOption> options = new ArrayList<>();
 	private List<Review> reviews = new ArrayList<>();
 
-	public Menu(Long menuId, String name, BigDecimal price, String category, String imageUrl, String description,
-			double averageRating, int reviewCount) {
+	public Menu(Long menuId, String name, BigDecimal price, String category, String imageUrl, String description) {
 		super();
 		this.menuId = menuId;
 		this.name = name;
@@ -26,8 +26,6 @@ public class Menu {
 		this.category = category;
 		this.imageUrl = imageUrl;
 		this.description = description;
-		this.averageRating = averageRating;
-		this.reviewCount = reviewCount;
 	}
 
 	public Menu() {
@@ -90,14 +88,6 @@ public class Menu {
 		this.averageRating = averageRating;
 	}
 
-	public int getReviewCount() {
-		return reviewCount;
-	}
-
-	public void setReviewCount(int reviewCount) {
-		this.reviewCount = reviewCount;
-	}
-
 	public List<Review> getReviews() {
 		return reviews;
 	}
@@ -114,11 +104,18 @@ public class Menu {
 		this.options = options;
 	}
 
+	public List<Allergen> getAllergens() {
+		return allergens;
+	}
+
+	public void setAllergens(List<Allergen> allergens) {
+		this.allergens = allergens;
+	}
+
 	@Override
 	public String toString() {
 		return "Menu [menuId=" + menuId + ", name=" + name + ", price=" + price + ", category=" + category
-				+ ", imageUrl=" + imageUrl + ", description=" + description + ", averageRating=" + averageRating
-				+ ", reviewCount=" + reviewCount + "]";
+				+ ", imageUrl=" + imageUrl + ", description=" + description + ", averageRating=" + averageRating + "]";
 	}
 
 }

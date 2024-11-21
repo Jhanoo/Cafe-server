@@ -27,8 +27,8 @@ public class MobileThroughProjectApplication {
     public OpenAPI postsApi() {
         Info info = new Info()
                .title("SSAF SSAF Rest API")
-               .description("<h3>SSAFY Cafe에서 제공되는 Rest api의 문서 제공</h3><br>"
-                  		+ "<img src=\"/imgs/ssafy_logo.png\" width=\"200\">")
+               .description("<h3>SSAF SSAF Cafe에서 제공되는 Rest api의 문서 제공</h3><br>"
+                  		+ "<img src=\"/imgs/logo_350px.png\" width=\"200\">")
                .contact(new Contact().name("ssafy").email("ssafy@ssafy.com"))
               .license(new License().name("SSAFY License").url("https://www.ssafy.com/ksp/jsp/swp/etc/swpPrivacy.jsp"))
                .version("1.0");

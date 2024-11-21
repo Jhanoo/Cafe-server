@@ -8,7 +8,7 @@ use ssaf_ssaf;
 -- Users 테이블 생성
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     birthday DATE,
@@ -23,18 +23,17 @@ CREATE TABLE Menus (
     price INT NOT NULL,
     category VARCHAR(50),
     image_url TEXT,
-    description TEXT,
-    average_rating DECIMAL(3, 2) DEFAULT 0.0,
-    review_count INT DEFAULT 0
+    description TEXT
 );
 
 CREATE TABLE Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     total_price INT NOT NULL,
-    order_status ENUM('Pending', 'Completed', 'Canceled') DEFAULT 'Pending',
+    order_status ENUM('준비중', '완료', '취소') DEFAULT '준비중',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    used_point INT default 0,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE OrderDetails (
@@ -42,8 +41,8 @@ CREATE TABLE OrderDetails (
     order_id INT NOT NULL,
     menu_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id)
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -52,8 +51,8 @@ CREATE TABLE ShoppingCart (
     user_id INT NOT NULL,
     menu_id INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE MenuOptions (
@@ -62,27 +61,15 @@ CREATE TABLE MenuOptions (
     name VARCHAR(100) NOT NULL,
     price INT DEFAULT 0,
     is_required BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id)
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE OrderOptions (
     order_option_id INT AUTO_INCREMENT PRIMARY KEY,
     order_detail_id INT NOT NULL,
     option_id INT NOT NULL,
-    FOREIGN KEY (order_detail_id) REFERENCES OrderDetails(order_detail_id),
-    FOREIGN KEY (option_id) REFERENCES MenuOptions(option_id)
-);
-
-
--- UserPointTransactions 테이블 생성
-CREATE TABLE UserPointTransactions (
-    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    type ENUM('Earned', 'Used') NOT NULL,
-    amount INT NOT NULL,
-    description VARCHAR(255),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (order_detail_id) REFERENCES OrderDetails(order_detail_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (option_id) REFERENCES MenuOptions(option_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- MenuReviews 테이블 생성
@@ -93,8 +80,8 @@ CREATE TABLE MenuReviews (
     rating TINYINT NOT NULL,
     comment TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -107,7 +94,7 @@ CREATE TABLE MenuNutrition (
     fat DECIMAL(5, 1),
     carbohydrates DECIMAL(5, 1),
     sodium DECIMAL(6, 2),
-    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id)
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -122,8 +109,8 @@ CREATE TABLE MenuAllergenMapping (
     mapping_id INT AUTO_INCREMENT PRIMARY KEY,
     menu_id INT NOT NULL,
     allergen_id INT NOT NULL,
-    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id),
-    FOREIGN KEY (allergen_id) REFERENCES Allergens(allergen_id),
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (allergen_id) REFERENCES Allergens(allergen_id) ON DELETE CASCADE ON UPDATE CASCADE,
     UNIQUE(menu_id, allergen_id)
 );
 
@@ -132,8 +119,8 @@ CREATE TABLE UserAllergens (
     user_allergen_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     allergen_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (allergen_id) REFERENCES Allergens(allergen_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (allergen_id) REFERENCES Allergens(allergen_id) ON DELETE CASCADE ON UPDATE CASCADE,
     UNIQUE(user_id, allergen_id)
 );
 

@@ -14,7 +14,7 @@ public class User {
 	private int stamps;
 
 	private List<CartItem> shoppingCart = new ArrayList<>();
-//	private List<Allergen> allergens = new ArrayList<>();
+	private List<Allergen> allergens = new ArrayList<>();
 
 	public User(Long userId, String name, String password, String email, Date birthday, int points, int stamps) {
 		super();
@@ -92,6 +92,14 @@ public class User {
 
 	public void setShoppingCart(List<CartItem> shoppingCart) {
 		this.shoppingCart = shoppingCart;
+	}
+
+	public List<Allergen> getAllergens() {
+		return allergens;
+	}
+
+	public void setAllergens(List<Allergen> allergens) {
+		this.allergens = allergens;
 	}
 
 	@Override

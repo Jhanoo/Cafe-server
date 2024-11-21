@@ -43,12 +43,12 @@ public class OrderController {
 	private UserService userService;
 
 	@PostMapping
-	@Operation(summary = "order 객체를 저장하고 추가된 Order의 id를 반환한다."
-		, description = "<pre>아래 형태로 입력하면 주문이 입력된다. \r\n"
+	@Operation(summary = "주문 추가"
+		, description = "<pre>아래 형태로 입력하면 주문이 입력됩니다. \r\n"
 				+ "{\r\n" 
 				+ "  \"userId\": \"ssaf\",\r\n" 
 				+ "  \"totalPrice\": \"4000\",\r\n"
-				+ "  \"orderStatus\": \"Pending\",\r\n" 
+				+ "  \"orderStatus\": \"준비중\",\r\n" 
 				+ "} " 
 				+ "</pre>")
 	public ResponseEntity<Long> insertOrder(@RequestBody Order order) {
@@ -81,6 +81,8 @@ public class OrderController {
 	}
 
 	@GetMapping
+	@Operation(summary = "사용자의 모든 주문 조회",
+    		description = "userId에 해당하는 사용자의 모든 주문을 조회합니다.")
 	public ResponseEntity<List<Order>> getOrdersByUserId(Long userId) {
 		List<Order> orders = orderService.getOrdersByUserId(userId);
 
@@ -95,6 +97,8 @@ public class OrderController {
 	}
 
 	@GetMapping("/{orderId}")
+	@Operation(summary = "주문내역 조회",
+    		description = "orderId에 해당하는 주문 정보를 조회합니다.")
 	public ResponseEntity<Order> getOrderById(@PathVariable Long orderId) {
 		Order order = orderService.getOrderById(orderId);
 
@@ -107,12 +111,16 @@ public class OrderController {
 	}
 
 	@PutMapping("/{orderId}/status")
+	@Operation(summary = "주문 상태 업데이트",
+    		description = "orderId에 해당하는 주문의 상태를 업데이트합니다.")
 	public ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, String status) {
 		orderService.updateOrderStatus(orderId, status);
 		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/{orderId}/detail")
+	@Operation(summary = "주문 상세 조회",
+    		description = "orderId에 해당하는 주문의 상세 정보를 조회합니다.")
 	public ResponseEntity<List<OrderDetail>> getOrderDetailByOrderId(@PathVariable Long orderId) {
 		List<OrderDetail> details = orderDetailService.getOrderDetailsByOrderId(orderId);
 		
@@ -125,6 +133,8 @@ public class OrderController {
 	}
 
 	@PostMapping("/{orderId}/detail")
+	@Operation(summary = "주문 상세 추가",
+			description = "orderId에 해당하는 주문에 새로운 주문 상세를 추가합니다.")
 	public ResponseEntity<Void> insertOrderDetail(@RequestBody OrderDetail orderDetail) {
 		orderDetailService.insertOrderDetail(orderDetail);
 		return ResponseEntity.ok().build();
