@@ -59,4 +59,9 @@ public class AllergenServiceImpl implements AllergenService {
 		return allergenDao.getAllergensByUserId(userId);
 	}
 
+	@Override
+	public void deleteAllAllergenByUser(Long userId) {
+		allergenDao.deleteAllAllergenByUser(userId);
+	}
+
 }

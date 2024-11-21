@@ -12,11 +12,12 @@ public class User {
 	private Date birthday;
 	private int points;
 	private int stamps;
+	private String image;
 
 	private List<CartItem> shoppingCart = new ArrayList<>();
 	private List<Allergen> allergens = new ArrayList<>();
 
-	public User(Long userId, String name, String password, String email, Date birthday, int points, int stamps) {
+	public User(Long userId, String name, String password, String email, Date birthday, int points, int stamps, String image) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -25,6 +26,7 @@ public class User {
 		this.birthday = birthday;
 		this.points = points;
 		this.stamps = stamps;
+		this.image = image;
 	}
 
 	public User() {
@@ -100,6 +102,14 @@ public class User {
 
 	public void setAllergens(List<Allergen> allergens) {
 		this.allergens = allergens;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	@Override

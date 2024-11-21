@@ -23,4 +23,6 @@ public interface AllergenService {
 	public void deleteAllergenMappingByUser(Long userId, Long allergenId);
 
 	public List<Allergen> getAllergensByUserId(Long userId);
+
+	public void deleteAllAllergenByUser(Long userId);
 }

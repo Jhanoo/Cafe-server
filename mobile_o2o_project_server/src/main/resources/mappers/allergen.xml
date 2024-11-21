@@ -48,4 +48,8 @@
 		WHERE ua.user_id = #{userId};
     </select>
     
+	<delete id="deleteAllAllergenByUser" parameterType="Long">
+		DELETE FROM UserAllergens WHERE user_id = #{userId}
+	</delete>
+    
 </mapper>

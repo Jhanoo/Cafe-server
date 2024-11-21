@@ -26,6 +26,12 @@
         WHERE email = #{email} AND password = #{password}
     </select>
     
+    <update id="updateUser" parameterType="User">
+		UPDATE Users
+		SET name = #{name}, password = #{password}, image = #{image}
+		WHERE user_id = #{userId}
+	</update>
+    
     <delete id="deleteUser" parameterType="Long">
         DELETE FROM Users WHERE user_id = #{userId}
     </delete>
@@ -41,7 +47,7 @@
     <update id="updateStamps" parameterType="User">
         UPDATE Users 
         SET stamps = #{stamps}
-        WHERE user_id = #{user_id}
+        WHERE user_id = #{userId}
     </update>
     
     <select id="getPoints" parameterType="Long" resultType="int">

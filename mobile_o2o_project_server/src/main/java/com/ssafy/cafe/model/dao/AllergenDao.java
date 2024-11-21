@@ -24,6 +24,8 @@ public interface AllergenDao {
 
 	void deleteAllergenMappingByUser(Long userId, Long allergenId);
 
+	void deleteAllAllergenByUser(Long userId);
+	
 	List<Allergen> getAllergensByUserId(Long userId);
 	
 }

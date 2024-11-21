@@ -13,7 +13,8 @@ CREATE TABLE Users (
     email VARCHAR(100) UNIQUE NOT NULL,
     birthday DATE,
     points INT DEFAULT 0,
-    stamps INT DEFAULT 0
+    stamps INT DEFAULT 0,
+    image VARCHAR(100)
 );
 
 -- Menus 테이블 생성
