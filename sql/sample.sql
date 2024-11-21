@@ -1,3 +1,5 @@
+use ssaf_ssaf;
+
 INSERT INTO Users (name, password, email, birthday, points, stamps)
 VALUES 
 ('Alice', 'password123', 'alice@example.com', '1990-05-15', 100, 2),
