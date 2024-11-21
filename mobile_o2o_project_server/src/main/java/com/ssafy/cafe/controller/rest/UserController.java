@@ -101,7 +101,7 @@ public class UserController {
 	}
 
 	@GetMapping("/info")
-	@Operation(summary = "사용자의 정보 조회.", description = "로그인 성공 후 쿠키 정보를 이용해 사용자의 정보를 반환합니다. 로그인 정보가 없으면 null을 반환합니다.")
+	@Operation(summary = "사용자의 정보 조회", description = "로그인 성공 후 쿠키 정보를 이용해 사용자의 정보를 반환합니다. 로그인 정보가 없으면 null을 반환합니다.")
 	public Map<String, Object> getInfo(HttpServletRequest request, String email) {
 		String emailInCookie = "";
 		Cookie[] cookies = request.getCookies();
