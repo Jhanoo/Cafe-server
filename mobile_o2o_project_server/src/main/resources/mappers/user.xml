@@ -5,8 +5,8 @@
 <mapper namespace="com.ssafy.cafe.model.dao.UserDao">
 
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO Users (username, password, email, birthday, points)
-        VALUES (#{username}, #{password}, #{email}, #{birthday}, #{points})
+		INSERT INTO Users (name, password, email, birthday, points)
+        VALUES (#{name}, #{password}, #{email}, #{birthday}, #{points})
 	</insert>
     
     <select id="getAllUsers" resultType="User">
@@ -23,7 +23,7 @@
 
     <select id="login" parameterType="map" resultType="User">
         SELECT * FROM Users
-        WHERE username = #{username} AND password = #{password}
+        WHERE email = #{email} AND password = #{password}
     </select>
     
     <delete id="deleteUser" parameterType="Long">

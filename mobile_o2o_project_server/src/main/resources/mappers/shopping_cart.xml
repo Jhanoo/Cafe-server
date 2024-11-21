@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.cafe.model.dao.ShoppingCartMapper">
+    <select id="getCartByUserId" parameterType="Long" resultType="CartItem">
+        SELECT * FROM ShoppingCart WHERE user_id = #{userId}
+    </select>
+
+    <insert id="addToCart" parameterType="CartItem">
+        INSERT INTO ShoppingCart (user_id, menu_id, quantity)
+        VALUES (#{userId}, #{menuId}, #{quantity})
+    </insert>
+
+    <update id="updateCartItem" parameterType="CartItem">
+        UPDATE ShoppingCart 
+        SET quantity = #{quantity} 
+        WHERE cart_id = #{cartId}
+    </update>
+    
+    <delete id="removeFromCart" parameterType="Long">
+        DELETE FROM ShoppingCart WHERE cart_id = #{cartId}
+    </delete>
+
+    <delete id="clearCartByUserId" parameterType="Long">
+        DELETE FROM ShoppingCart WHERE user_id = #{userId}
+    </delete>
+</mapper>

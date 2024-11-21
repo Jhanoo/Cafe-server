@@ -6,17 +6,18 @@ import java.util.List;
 
 public class User {
 	private Long userId;
-	private String username;
+	private String name;
 	private String password;
 	private String email;
 	private Date birthday;
 	private int points;
 	private int stamps;
+	private List<CartItem> shoppingCart = new ArrayList<>();
 
-	public User(Long userId, String username, String password, String email, Date birthday, int points, int stamps) {
+	public User(Long userId, String name, String password, String email, Date birthday, int points, int stamps) {
 		super();
 		this.userId = userId;
-		this.username = username;
+		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.birthday = birthday;
@@ -35,12 +36,12 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPassword() {
@@ -83,9 +84,17 @@ public class User {
 		this.stamps = stamps;
 	}
 
+	public List<CartItem> getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(List<CartItem> shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", email=" + email
+		return "User [userId=" + userId + ", name=" + name + ", password=" + password + ", email=" + email
 				+ ", birthday=" + birthday + ", points=" + points + ", stamps=" + stamps + "]";
 	}
 

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.model.dto.Order;
+import com.ssafy.cafe.model.dto.OrderDetail;
+import com.ssafy.cafe.model.service.OrderDetailService;
 import com.ssafy.cafe.model.service.OrderService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +32,9 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    
+    @Autowired
+    private OrderDetailService orderDetailService;
     
     @PostMapping
     @Operation(summary="order 객체를 저장하고 추가된 Order의 id를 반환한다.", 
@@ -46,12 +51,12 @@ public class OrderController {
 		return ResponseEntity.ok(order.getOrderId());
 	}
 
-	@GetMapping("/{userId}")
-	public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
+	@GetMapping
+	public ResponseEntity<List<Order>> getOrdersByUserId(Long userId) {
 		return ResponseEntity.ok(orderService.getOrdersByUserId(userId));
 	}
 	
-	@GetMapping("/detail/{orderId}")
+	@GetMapping("/{orderId}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long orderId) {
         return ResponseEntity.ok(orderService.getOrderById(orderId));
     }
@@ -62,5 +67,15 @@ public class OrderController {
 		return ResponseEntity.ok().build();
 	}
 
+	@GetMapping("/{orderId}/detail")
+	public ResponseEntity<List<OrderDetail>> getOrderDetailByOrderId(@PathVariable Long orderId) {
+		return ResponseEntity.ok(orderDetailService.getOrderDetailsByOrderId(orderId));
+	}
+
+    @PostMapping("/{orderId}/detail")
+    public ResponseEntity<Void> insertOrderDetail(@RequestBody OrderDetail orderDetail) {
+        orderDetailService.insertOrderDetail(orderDetail);
+        return ResponseEntity.ok().build();
+    }
 
 }
