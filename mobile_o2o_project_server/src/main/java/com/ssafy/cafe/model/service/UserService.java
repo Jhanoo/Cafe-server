@@ -19,7 +19,11 @@ public interface UserService {
 
 	public void deleteUser(Long userId);
 
+	public int getStamps(Long userId);
+
 	public void updatePoints(Long userId, int points);
+
+	public int getPoints(Long userId);
 
 	public void updateStamps(Long userId, int stamps);
 }

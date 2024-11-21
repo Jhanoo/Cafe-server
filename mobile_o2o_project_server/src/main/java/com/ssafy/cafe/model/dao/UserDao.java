@@ -21,7 +21,11 @@ public interface UserDao {
 	User isUsedEmail(String email);
 
 	// 스탬프, 포인트
+	int getStamps(Long userId);
+	
 	void updateStamps(Long userId, int stamps);
+
+	int getPoints(Long userId);
 	
     void updatePoints(Long userId, int points);
 

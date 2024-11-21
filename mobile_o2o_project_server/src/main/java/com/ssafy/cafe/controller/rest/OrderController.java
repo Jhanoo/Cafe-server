@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.OrderDetail;
+import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.service.OrderDetailService;
 import com.ssafy.cafe.model.service.OrderService;
+import com.ssafy.cafe.model.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -35,14 +37,37 @@ public class OrderController {
 
 	@Autowired
 	private OrderDetailService orderDetailService;
+	
+	@Autowired
+	private UserService userService;
 
 	@PostMapping
-	@Operation(summary = "order 객체를 저장하고 추가된 Order의 id를 반환한다.", description = "<pre>아래 형태로 입력하면 주문이 입력된다. \r\n"
-			+ "{\r\n" + "  \"userId\": \"ssaf\",\r\n" + "  \"totalPrice\": \"4000\",\r\n"
-			+ "  \"orderStatus\": \"Pending\",\r\n" + "} " + "</pre>")
+	@Operation(summary = "order 객체를 저장하고 추가된 Order의 id를 반환한다."
+		, description = "<pre>아래 형태로 입력하면 주문이 입력된다. \r\n"
+				+ "{\r\n" 
+				+ "  \"userId\": \"ssaf\",\r\n" 
+				+ "  \"totalPrice\": \"4000\",\r\n"
+				+ "  \"orderStatus\": \"Pending\",\r\n" 
+				+ "} " 
+				+ "</pre>")
 	public ResponseEntity<Long> insertOrder(@RequestBody Order order) {
 		logger.debug("insertOrder", order);
 		orderService.insertOrder(order);
+		
+		int stamps = userService.getStamps(order.getUserId());
+		int points = userService.getPoints(order.getUserId());
+		
+		List<OrderDetail> details = order.getDetails();
+		for(OrderDetail detail : details) {
+			stamps += detail.getQuantity();
+		}
+		
+		points += (stamps / 10) * 2000;
+		stamps = stamps % 10;
+		
+		userService.updatePoints(order.getUserId(), points);
+		userService.updateStamps(order.getUserId(), stamps);
+		
 		return ResponseEntity.ok(order.getOrderId());
 	}
 

@@ -132,13 +132,13 @@ public class UserController {
 	}
 
 	@PutMapping("/{userId}/points")
-	public ResponseEntity<Void> updateUserPoints(@PathVariable Long userId, int points) {
+	public ResponseEntity<Void> updatePoints(@PathVariable Long userId, int points) {
 		userService.updatePoints(userId, points);
 		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping("/{userId}/stamps")
-	public ResponseEntity<Void> updateUserStamps(@PathVariable Long userId, int stamps) {
+	public ResponseEntity<Void> updateStamps(@PathVariable Long userId, int stamps) {
 		userService.updateStamps(userId, stamps);
 		return ResponseEntity.ok().build();
 	}

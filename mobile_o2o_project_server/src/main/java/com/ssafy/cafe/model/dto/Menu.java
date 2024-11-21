@@ -14,6 +14,7 @@ public class Menu {
 	private double averageRating;
 	private int reviewCount;
 
+	private List<MenuOption> options = new ArrayList<>();
 	private List<Review> reviews = new ArrayList<>();
 
 	public Menu(Long menuId, String name, BigDecimal price, String category, String imageUrl, String description,
@@ -103,6 +104,14 @@ public class Menu {
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	public List<MenuOption> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<MenuOption> options) {
+		this.options = options;
 	}
 
 	@Override

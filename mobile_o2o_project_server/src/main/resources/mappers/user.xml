@@ -34,16 +34,24 @@
         SELECT * FROM Users WHERE email = #{email}
     </select>
     
-    <update id="updatePoints" parameterType="map">
-        UPDATE Users 
-        SET points = #{points} 
-        WHERE user_id = #{userId}
-    </update>
+    <select id="getStamps" parameterType="Long" resultType="int">
+        SELECT stamps FROM Users WHERE user_id = #{userId}
+    </select>
     	
     <update id="updateStamps" parameterType="User">
         UPDATE Users 
         SET stamps = #{stamps}
         WHERE user_id = #{user_id}
+    </update>
+    
+    <select id="getPoints" parameterType="Long" resultType="int">
+        SELECT points FROM Users WHERE user_id = #{userId}
+    </select>
+    
+    <update id="updatePoints" parameterType="map">
+        UPDATE Users 
+        SET points = #{points} 
+        WHERE user_id = #{userId}
     </update>
     	
     <select id="getAllergensByUserId" parameterType="Long" resultType="String">

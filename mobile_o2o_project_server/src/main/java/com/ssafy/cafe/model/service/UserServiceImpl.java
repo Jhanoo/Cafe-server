@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updatePoints(Long userId, int points) {
-		userDao.updatePoints(userId, points);
+	public int getStamps(Long userId) {
+		return userDao.getStamps(userId);
 	}
 
 	@Override
@@ -62,5 +62,14 @@ public class UserServiceImpl implements UserService {
 		userDao.updateStamps(userId, stamps);
 	}
 
+	@Override
+	public int getPoints(Long userId) {
+		return userDao.getPoints(userId);
+	}
+
+	@Override
+	public void updatePoints(Long userId, int points) {
+		userDao.updatePoints(userId, points);
+	}
 
 }
