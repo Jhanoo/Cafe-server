@@ -105,8 +105,9 @@ public class UserController {
 
 			List<CartItem> shoppingCart = cartService.getCartByUserId(user.getUserId());
 			user.setShoppingCart(shoppingCart);
+			return ResponseEntity.ok(user);
 		}
-		return ResponseEntity.ok(user);
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 	}
 
 	@GetMapping("/info")
@@ -133,16 +134,19 @@ public class UserController {
 		if (!email.equals(emailInCookie)) {
 			logger.info("different cookie value : inputValue : {}, inCookie:{}", email, emailInCookie);
 			user = null; // 사용자 정보 삭제.
-		} else {
-			logger.info("valid cookie value : inputValue : {}, inCookie:{}", email, emailInCookie);
-
-			List<Allergen> allergens = allergenService.getAllergensByUserId(user.getUserId());
-			user.setAllergens(allergens);
-
-			List<CartItem> shoppingCart = cartService.getCartByUserId(user.getUserId());
-			user.setShoppingCart(shoppingCart);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
-		
+
+		logger.info("valid cookie value : inputValue : {}, inCookie:{}", email, emailInCookie);
+
+		List<Allergen> allergens = allergenService.getAllergensByUserId(user.getUserId());
+		user.setAllergens(allergens);
+
+		List<CartItem> shoppingCart = cartService.getCartByUserId(user.getUserId());
+		user.setShoppingCart(shoppingCart);
+
+		logger.info("user = {}", user);
+
 		return ResponseEntity.ok(user);
 	}
 
