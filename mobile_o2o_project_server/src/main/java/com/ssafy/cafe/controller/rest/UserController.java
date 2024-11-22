@@ -72,7 +72,10 @@ public class UserController {
 				+ "}" + "</pre>")
 	public ResponseEntity<Void> insertUser(@RequestBody User user) {
 		logger.debug("user.insert", user);
-		userService.insertUser(user);
+		int result = userService.insertUser(user);
+		if(result == 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
 		return ResponseEntity.ok().build();
 	}
 
@@ -107,6 +110,7 @@ public class UserController {
 			user.setShoppingCart(shoppingCart);
 			return ResponseEntity.ok(user);
 		}
+		
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 	}
 
