@@ -16,9 +16,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User login(String email, String password) {
 		User user = userDao.login(email, password);
-		if (user == null) {
-			throw new RuntimeException("Invalid email or password");
-		}
 		return user;
 	}
 
