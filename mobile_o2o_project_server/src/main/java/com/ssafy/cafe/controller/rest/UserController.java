@@ -171,10 +171,10 @@ public class UserController {
 			description = "사용자의 정보를 업데이트합니다.")
 	public ResponseEntity<Void> updateUser(@RequestBody User user) {
 		userService.updateUser(user);
-		allergenService.deleteAllAllergenByUser(user.getUserId());
-		for (Allergen allergen : user.getAllergens()) {
-			allergenService.insertAllergenToUser(user.getUserId(), allergen.getAllergenId());
-		}
+//		allergenService.deleteAllAllergenByUser(user.getUserId());
+//		for (Allergen allergen : user.getAllergens()) {
+//			allergenService.insertAllergenToUser(user.getUserId(), allergen.getAllergenId());
+//		}
 		return ResponseEntity.ok().build();
 	}
 

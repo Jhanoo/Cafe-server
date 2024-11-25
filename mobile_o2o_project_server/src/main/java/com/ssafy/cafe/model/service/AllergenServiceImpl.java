@@ -64,4 +64,14 @@ public class AllergenServiceImpl implements AllergenService {
 		allergenDao.deleteAllAllergenByUser(userId);
 	}
 
+	@Override
+	public List<Allergen> getAllAllergens() {
+		return allergenDao.getAllAllergens();
+	}
+
+	@Override
+	public List<Allergen> getAllergensByMenuId(Long menuId) {
+		return allergenDao.getAllergensByMenuId(menuId);
+	}
+
 }

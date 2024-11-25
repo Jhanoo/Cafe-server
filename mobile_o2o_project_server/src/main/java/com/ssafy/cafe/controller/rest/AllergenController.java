@@ -1,5 +1,7 @@
 package com.ssafy.cafe.controller.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,6 +32,13 @@ public class AllergenController {
     		description = "allergenId에 해당하는 알레르기 유발 성분 정보를 조회합니다.")
 	public ResponseEntity<Allergen> getAllergenById(@PathVariable Long allergenId) {
 		return ResponseEntity.ok(allergenService.getAllergen(allergenId));
+	}
+	
+	@GetMapping
+	@Operation(summary = "알레르기 유발 성분 전부 조회", 
+			description = "모든 알레르기 유발 성분 정보를 조회합니다.")
+	public ResponseEntity<List<Allergen>> getAllAllergens() {
+		return ResponseEntity.ok(allergenService.getAllAllergens());
 	}
 
 	@PostMapping

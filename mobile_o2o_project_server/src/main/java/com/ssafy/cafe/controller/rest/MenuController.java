@@ -56,6 +56,7 @@ public class MenuController {
 		
 		for(Menu menu : menus) {
 			menu.setAverageRating(menuService.getMenuAverageRating(menu.getMenuId()));
+			menu.setAllergens(allergenService.getAllergensByMenuId(menu.getMenuId()));
 		}
 		
 		return ResponseEntity.ok(menus);

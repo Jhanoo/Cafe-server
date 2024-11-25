@@ -140,24 +140,51 @@ VALUES
 (3, 80.0, 0.0, 0.0, 20.0, 0.0);
 
 
-INSERT INTO Allergens (name)
-VALUES 
+INSERT INTO Allergens (name) VALUES 
 ('Milk'),
 ('Soy'),
-('Nuts');
+('Gluten'),
+('Nuts'),
+('Eggs');
 
 
-INSERT INTO MenuAllergenMapping (menu_id, allergen_id)
-VALUES 
-(1, 1),
-(2, 1),
-(2, 2),
-(3, 2);
+-- Americano: No allergens
+-- Cafe Latte: Milk
+INSERT INTO MenuAllergenMapping (menu_id, allergen_id) VALUES 
+((SELECT menu_id FROM Menus WHERE name = 'Cafe Latte'), (SELECT allergen_id FROM Allergens WHERE name = 'Milk'));
 
+-- Cappuccino: Milk
+INSERT INTO MenuAllergenMapping (menu_id, allergen_id) VALUES 
+((SELECT menu_id FROM Menus WHERE name = 'Cappuccino'), (SELECT allergen_id FROM Allergens WHERE name = 'Milk'));
 
-INSERT INTO UserAllergens (user_id, allergen_id)
-VALUES 
-(1, 1),
-(2, 2),
-(3, 3);
+-- Caramel Macchiato: Milk, Soy
+INSERT INTO MenuAllergenMapping (menu_id, allergen_id) VALUES 
+((SELECT menu_id FROM Menus WHERE name = 'Caramel Macchiato'), (SELECT allergen_id FROM Allergens WHERE name = 'Milk')),
+((SELECT menu_id FROM Menus WHERE name = 'Caramel Macchiato'), (SELECT allergen_id FROM Allergens WHERE name = 'Soy'));
+
+-- Cookie: Gluten, Milk, Eggs
+INSERT INTO MenuAllergenMapping (menu_id, allergen_id) VALUES 
+((SELECT menu_id FROM Menus WHERE name = 'Cookie'), (SELECT allergen_id FROM Allergens WHERE name = 'Gluten')),
+((SELECT menu_id FROM Menus WHERE name = 'Cookie'), (SELECT allergen_id FROM Allergens WHERE name = 'Milk')),
+((SELECT menu_id FROM Menus WHERE name = 'Cookie'), (SELECT allergen_id FROM Allergens WHERE name = 'Eggs'));
+
+SELECT allergen_id FROM Allergens WHERE name = 'Eggs';
+
+-- Grapefruit Ade: No allergens
+-- Green Tea Latte: Milk
+INSERT INTO MenuAllergenMapping (menu_id, allergen_id) VALUES 
+((SELECT menu_id FROM Menus WHERE name = 'Green Tea Latte'), (SELECT allergen_id FROM Allergens WHERE name = 'Milk'));
+
+-- Lemonade: No allergens
+-- Mocha Latte: Milk, Soy
+INSERT INTO MenuAllergenMapping (menu_id, allergen_id) VALUES 
+((SELECT menu_id FROM Menus WHERE name = 'Mocha Latte'), (SELECT allergen_id FROM Allergens WHERE name = 'Milk')),
+((SELECT menu_id FROM Menus WHERE name = 'Mocha Latte'), (SELECT allergen_id FROM Allergens WHERE name = 'Soy'));
+
+-- White Mocha Latte: Milk, Soy, Nuts
+INSERT INTO MenuAllergenMapping (menu_id, allergen_id) VALUES 
+((SELECT menu_id FROM Menus WHERE name = 'White Mocha Latte'), (SELECT allergen_id FROM Allergens WHERE name = 'Milk')),
+((SELECT menu_id FROM Menus WHERE name = 'White Mocha Latte'), (SELECT allergen_id FROM Allergens WHERE name = 'Soy')),
+((SELECT menu_id FROM Menus WHERE name = 'White Mocha Latte'), (SELECT allergen_id FROM Allergens WHERE name = 'Nuts'));
+
 

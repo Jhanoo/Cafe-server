@@ -8,7 +8,7 @@
         SELECT * FROM OrderDetails WHERE order_id = #{orderId}
     </select>
 
-    <insert id="insertOrderDetail" parameterType="OrderDetail">
+    <insert id="insertOrderDetail" parameterType="OrderDetail" useGeneratedKeys="true" keyProperty="orderDetailId">
         INSERT INTO OrderDetails (order_id, menu_id, quantity)
         VALUES (#{orderId}, #{menuId}, #{quantity})
     </insert>

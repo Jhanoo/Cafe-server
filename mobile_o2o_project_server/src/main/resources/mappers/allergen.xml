@@ -8,6 +8,17 @@
         SELECT * FROM Allergens WHERE allergen_id = #{allergenId}
     </select>
     
+    <select id="getAllAllergens" resultType="Allergen">
+    	SELECT * FROM Allergens
+    </select>
+    
+    <select id="getAllergensByMenuId" parameterType="Long" resultType="Allergen">
+    	SELECT a.allergen_id AS allergen_id, a.name AS name
+		FROM MenuAllergenMapping mam
+		JOIN Allergens a ON mam.allergen_id = a.allergen_id
+		WHERE mam.menu_id = #{menuId};
+    </select>
+    
     <insert id="insertAllergen" parameterType="Allergen">
         INSERT INTO Allergens (name)
         VALUES (#{name})

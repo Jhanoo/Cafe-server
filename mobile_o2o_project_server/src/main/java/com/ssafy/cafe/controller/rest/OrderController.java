@@ -58,10 +58,11 @@ public class OrderController {
 		int stamps = userService.getStamps(order.getUserId());
 		int points = userService.getPoints(order.getUserId());
 		
-		
 		List<OrderDetail> details = order.getDetails();
 
 		for (OrderDetail detail : details) {
+			detail.setOrderId(order.getOrderId());
+			logger.debug("detail: {}", detail);
 			orderDetailService.insertOrderDetail(detail);
 			
 			for (MenuOption option : detail.getOptions()) {
@@ -125,7 +126,7 @@ public class OrderController {
 		List<OrderDetail> details = orderDetailService.getOrderDetailsByOrderId(orderId);
 		
 		for(OrderDetail detail : details) {
-			List<MenuOption> options = orderDetailService.getOrderOptions(orderId);
+			List<MenuOption> options = orderDetailService.getOrderOptions(detail.getOrderDetailId());
 			detail.setOptions(options);
 		}
 		
