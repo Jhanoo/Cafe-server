@@ -8,7 +8,7 @@ public class Order {
 	private Long orderId;
 	private Long userId;
 	private int totalPrice;
-	private String orderStatus; // 'Pending', 'Completed', 'Canceled'
+	private String orderStatus; // 'Y', 'N', 'C'
 	private Date createdAt;
 
 	private List<OrderDetail> details = new ArrayList<>();

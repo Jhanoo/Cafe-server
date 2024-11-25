@@ -17,7 +17,8 @@ public class User {
 	private List<CartItem> shoppingCart = new ArrayList<>();
 	private List<Allergen> allergens = new ArrayList<>();
 
-	public User(Long userId, String name, String password, String email, Date birthday, int points, int stamps, String image) {
+	public User(Long userId, String name, String password, String email, Date birthday, int points, int stamps,
+			String image) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -115,8 +116,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", password=" + password + ", email=" + email
-				+ ", birthday=" + birthday + ", points=" + points + ", stamps=" + stamps + ", shoppingCart="
-				+ shoppingCart + "]";
+				+ ", birthday=" + birthday + ", points=" + points + ", stamps=" + stamps + ", image=" + image
+				+ ", shoppingCart=" + shoppingCart + ", allergens=" + allergens + "]";
 	}
 
 }

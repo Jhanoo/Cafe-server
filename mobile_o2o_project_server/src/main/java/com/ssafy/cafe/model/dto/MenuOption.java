@@ -3,15 +3,15 @@ package com.ssafy.cafe.model.dto;
 public class MenuOption {
 
 	private Long optionId;
-	private Long menuId;
+	private String category;
 	private String name;
 	private int price;
 	private boolean isRequired;
 
-	public MenuOption(Long optionId, Long menuId, String name, int price, boolean isRequired) {
+	public MenuOption(Long optionId, String category, String name, int price, boolean isRequired) {
 		super();
 		this.optionId = optionId;
-		this.menuId = menuId;
+		this.category = category;
 		this.name = name;
 		this.price = price;
 		this.isRequired = isRequired;
@@ -25,12 +25,12 @@ public class MenuOption {
 		this.optionId = optionId;
 	}
 
-	public Long getMenuId() {
-		return menuId;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setMenuId(Long menuId) {
-		this.menuId = menuId;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getName() {
@@ -59,7 +59,7 @@ public class MenuOption {
 
 	@Override
 	public String toString() {
-		return "MenuOption [optionId=" + optionId + ", menuId=" + menuId + ", name=" + name + ", price=" + price
+		return "MenuOption [optionId=" + optionId + ", category=" + category + ", name=" + name + ", price=" + price
 				+ ", isRequired=" + isRequired + "]";
 	}
 

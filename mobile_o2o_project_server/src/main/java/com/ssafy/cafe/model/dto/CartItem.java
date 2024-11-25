@@ -1,11 +1,16 @@
 package com.ssafy.cafe.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartItem {
 
 	private Long cartId;
 	private Long userId;
 	private Long menuId;
 	private int quantity;
+
+	private List<MenuOption> options = new ArrayList<>();
 
 	public CartItem(Long cartId, Long userId, Long menuId, int quantity) {
 		super();
@@ -47,10 +52,18 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 
+	public List<MenuOption> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<MenuOption> options) {
+		this.options = options;
+	}
+
 	@Override
 	public String toString() {
 		return "CartItem [cartId=" + cartId + ", userId=" + userId + ", menuId=" + menuId + ", quantity=" + quantity
-				+ "]";
+				+ ", options=" + options + "]";
 	}
 
 }

@@ -8,6 +8,8 @@ public interface UserDao {
 
 	List<User> getAllUsers(); // 필요한가?
 
+	String getUserName(Long userId);
+	
 	User getUserByEmail(String email);
 	
     User getUserById(Long userId);

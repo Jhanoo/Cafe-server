@@ -11,6 +11,8 @@ public interface UserService {
 
 	public boolean isUsedEmail(String email);
 
+	public String getUserName(Long userId);
+	
 	public User getUserByEmail(String email);
 
 	public User getUserById(Long userId);

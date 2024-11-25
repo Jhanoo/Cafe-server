@@ -7,14 +7,27 @@
         SELECT * FROM ShoppingCart WHERE user_id = #{userId}
     </select>
 
-    <insert id="addToCart" parameterType="CartItem">
+	<select id="getCartItemOptions" parameterType="Long" resultType="MenuOption">
+		SELECT mo.*
+		FROM MenuOptions mo
+		JOIN CartItemOptions cio ON mo.option_id = cio.option_id
+		JOIN ShoppingCart sc ON cio.cart_id = sc.cart_id
+		WHERE sc.cart_id = #{cartId};
+	</select>
+
+    <insert id="addToCart" parameterType="CartItem" useGeneratedKeys="true" keyProperty="cartId">
         INSERT INTO ShoppingCart (user_id, menu_id, quantity)
         VALUES (#{userId}, #{menuId}, #{quantity})
     </insert>
 
+	<insert id="insertCartItemOption" parameterType="CartItemOption">
+		INSERT INTO CartItemOptions (cart_id, option_id)
+		VALUES (#{cartId}, #{optionId})
+	</insert>
+
     <update id="updateCartItem" parameterType="CartItem">
         UPDATE ShoppingCart 
-        SET quantity = #{quantity} 
+        SET quantity = #{quantity}, option_id = #{optionId} 
         WHERE cart_id = #{cartId}
     </update>
     

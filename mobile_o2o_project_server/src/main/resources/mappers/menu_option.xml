@@ -4,12 +4,12 @@
 	
 <mapper namespace="com.ssafy.cafe.model.dao.MenuOptionDao">
 
-    <select id="getMenuOptionByMenuId" resultType="MenuOption">
-    	SELECT * FROM MenuOptions WHERE menu_id = #{menuId}
-    </select>
-    
-    <select id="getMenuById" parameterType="Long" resultType="Menu">
-        SELECT * FROM Menus WHERE menu_id = #{menuId}
+    <select id="getMenuOptionByMenuId" parameterType="Long" resultType="MenuOption">
+    	SELECT mo.*
+		FROM MenuOptions mo
+		JOIN MenuOptionMapping mom ON mo.option_id = mom.option_id
+		JOIN Menus m ON mom.menu_id = m.menu_id
+		WHERE m.menu_id = #{menuId};
     </select>
     
     <insert id="insertMenuOption" parameterType="MenuOption">

@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.model.dto.Allergen;
 import com.ssafy.cafe.model.dto.CartItem;
+import com.ssafy.cafe.model.dto.CartItemOption;
 import com.ssafy.cafe.model.dto.LoginRequest;
+import com.ssafy.cafe.model.dto.MenuOption;
 import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.service.AllergenService;
 import com.ssafy.cafe.model.service.FileStorageService;
@@ -62,6 +64,16 @@ public class UserController {
 	@Autowired
 	FileStorageService fileStorageService;
 
+	@GetMapping("/{userId}")	
+	public ResponseEntity<String> getUserName(@PathVariable Long userId) {
+		String name = userService.getUserName(userId);
+		if(name != null) {
+			return ResponseEntity.ok(name);
+		}
+		
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+	}
+	
 	@PostMapping
 	@Operation(summary = "사용자 정보 추가", 
 			description = "<pre>사용자를 추가하는 샘플코드\n" 
@@ -212,7 +224,11 @@ public class UserController {
 	@Operation(summary = "장바구니 조회", 
 			description = "해당 userId에 대한 장바구니 정보를 조회합니다.")
 	public ResponseEntity<List<CartItem>> getCartByUserId(@PathVariable Long userId) {
-		return ResponseEntity.ok(cartService.getCartByUserId(userId));
+		List<CartItem> shoppingCart = cartService.getCartByUserId(userId);
+		for(CartItem item : shoppingCart) {
+			item.setOptions(cartService.getCartItemOptions(item.getCartId()));
+		}
+		return ResponseEntity.ok(shoppingCart);
 	}
 
 	@PostMapping("/{userId}/cart")
@@ -220,6 +236,10 @@ public class UserController {
 			description = "userId에 해당하는 사용자의 장바구니에 아이템을 추가합니다.")
 	public ResponseEntity<Void> addToCart(@RequestBody CartItem cartItem) {
 		cartService.addToCart(cartItem);
+		
+		for(MenuOption option : cartItem.getOptions()) {
+			cartService.insertCartItemOption(new CartItemOption(0L, cartItem.getCartId(), option.getOptionId()));
+		}
 		return ResponseEntity.ok().build();
 	}
 

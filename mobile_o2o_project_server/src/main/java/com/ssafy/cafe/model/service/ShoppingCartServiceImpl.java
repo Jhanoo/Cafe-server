@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.cafe.model.dao.ShoppingCartDao;
 import com.ssafy.cafe.model.dto.CartItem;
+import com.ssafy.cafe.model.dto.CartItemOption;
+import com.ssafy.cafe.model.dto.MenuOption;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -37,6 +39,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public void clearCartByUserId(Long userId) {
 		cartDao.clearCartByUserId(userId);
+	}
+
+	@Override
+	public List<MenuOption> getCartItemOptions(Long cartId) {
+		return cartDao.getCartItemOptions(cartId);
+	}
+
+	@Override
+	public void insertCartItemOption(CartItemOption cartItemOption) {
+		cartDao.insertCartItemOption(cartItemOption);
 	}
 
 }

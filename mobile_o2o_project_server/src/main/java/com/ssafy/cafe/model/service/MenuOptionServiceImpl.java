@@ -2,6 +2,7 @@ package com.ssafy.cafe.model.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.cafe.model.dao.MenuOptionDao;
@@ -10,6 +11,7 @@ import com.ssafy.cafe.model.dto.MenuOption;
 @Service
 public class MenuOptionServiceImpl implements MenuOptionService {
 
+	@Autowired
 	private MenuOptionDao menuOptionDao;
 	
 	@Override

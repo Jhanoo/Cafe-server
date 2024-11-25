@@ -115,7 +115,8 @@ public class Menu {
 	@Override
 	public String toString() {
 		return "Menu [menuId=" + menuId + ", name=" + name + ", price=" + price + ", category=" + category
-				+ ", imageUrl=" + imageUrl + ", description=" + description + ", averageRating=" + averageRating + "]";
+				+ ", imageUrl=" + imageUrl + ", description=" + description + ", averageRating=" + averageRating
+				+ ", allergens=" + allergens + ", options=" + options + ", reviews=" + reviews + "]";
 	}
 
 }

@@ -2,6 +2,8 @@ package com.ssafy.cafe.controller.rest;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +31,8 @@ import io.swagger.v3.oas.annotations.Operation;
 @CrossOrigin("*")
 public class MenuController {
 
+	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+	
 	@Autowired
 	MenuService menuService;
 
@@ -63,8 +67,12 @@ public class MenuController {
 	public ResponseEntity<Menu> getMenuById(@PathVariable Long menuId) {
 		Menu menu = menuService.getMenuById(menuId);
 		
-		if(menu != null)
+		if(menu != null) {
 			menu.setAverageRating(menuService.getMenuAverageRating(menuId));
+			menu.setReviews(reviewService.getReviewByMenuId(menuId));
+			menu.setOptions(menuOptionService.getMenuOptionByMenuId(menuId));
+			logger.debug("reviews={}",menu.getReviews());
+		}
 		
 		return ResponseEntity.ok(menu);
 	}
@@ -87,9 +95,6 @@ public class MenuController {
 	@Operation(summary = "메뉴 삭제",
     		description = "menuId에 해당하는 메뉴 정보를 삭제합니다.")
 	public ResponseEntity<Void> deleteMenu(@PathVariable Long menuId) {
-//		reviewService.deleteAllReviewsByMenuId(menuId);
-//		menuOptionService.deleteMenuOption(menuId);
-//		allergenService.deleteAllergenMappingByMenuId(menuId);
 		menuService.deleteMenu(menuId);
 		
 		return ResponseEntity.ok().build();

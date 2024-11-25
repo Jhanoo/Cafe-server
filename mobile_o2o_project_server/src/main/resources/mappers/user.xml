@@ -9,6 +9,10 @@
         VALUES (#{name}, #{password}, #{email}, #{birthday}, #{points})
 	</insert>
     
+    <select id="getUserName" parameterType="Long" resultType="String">
+    	SELECT name FROM Users WHERE user_id = #{userId}
+    </select>
+    
     <select id="getAllUsers" resultType="User">
     	SELECT * FROM Users
     </select>
