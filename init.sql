@@ -31,7 +31,7 @@ CREATE TABLE Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     total_price INT NOT NULL,
-    order_status ENUM('준비중', '완료', '취소') DEFAULT '준비중',
+    order_status ENUM('Y', 'N', 'C') DEFAULT 'N',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     used_point INT default 0,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -47,6 +47,23 @@ CREATE TABLE OrderDetails (
 );
 
 
+CREATE TABLE MenuOptions (
+    option_id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    price INT DEFAULT 0,
+    is_required BOOLEAN DEFAULT FALSE
+);
+
+
+CREATE TABLE MenuOptionMapping (
+	mapping_id INT AUTO_INCREMENT PRIMARY KEY,
+    menu_id INT NOT NULL,
+    option_id INT NOT NULL,
+    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (option_id) REFERENCES MenuOptions(option_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE ShoppingCart (
     cart_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -56,13 +73,13 @@ CREATE TABLE ShoppingCart (
     FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE MenuOptions (
-    option_id INT AUTO_INCREMENT PRIMARY KEY,
-    menu_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    price INT DEFAULT 0,
-    is_required BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (menu_id) REFERENCES Menus(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE CartItemOptions (
+    cart_option_id INT AUTO_INCREMENT PRIMARY KEY,
+    cart_id INT NOT NULL,
+    option_id INT NOT NULL,
+    FOREIGN KEY (cart_id) REFERENCES ShoppingCart(cart_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (option_id) REFERENCES MenuOptions(option_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE(cart_id, option_id)
 );
 
 CREATE TABLE OrderOptions (
@@ -130,8 +147,6 @@ CREATE INDEX idx_menu_id ON Menus(menu_id);
 CREATE INDEX idx_order_id ON Orders(order_id);
 CREATE INDEX idx_order_detail_id ON OrderDetails(order_detail_id);
 CREATE INDEX idx_option_id ON MenuOptions(option_id);
-CREATE INDEX idx_mapping_menu_id ON MenuAllergenMapping(menu_id);
-CREATE INDEX idx_mapping_allergen_id ON MenuAllergenMapping(allergen_id);
 CREATE INDEX idx_user_allergen_user_id ON UserAllergens(user_id);
 CREATE INDEX idx_user_allergen_allergen_id ON UserAllergens(allergen_id);
 

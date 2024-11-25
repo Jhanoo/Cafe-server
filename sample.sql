@@ -8,17 +8,25 @@ VALUES
 
 
 INSERT INTO Menus (name, price, category, image_url, description)
-VALUES 
-('Espresso', 3000, 'Coffee', 'espresso.jpg', 'Strong and bold coffee'),
-('Latte', 4000, 'Coffee', 'latte.jpg', 'Smooth and creamy'),
-('Green Tea', 3500, 'Tea', 'green_tea.jpg', 'Refreshing green tea');
+VALUES
+('Americano', 3500, 'Coffee', 'americano.png', 'Classic americano with a rich flavor'),
+('Cafe Latte', 4000, 'Coffee', 'cafelatte.png', 'Smooth and creamy cafe latte'),
+('Cappuccino', 4000, 'Coffee', 'cappuccino.png', 'Foamy and rich cappuccino'),
+('Caramel Macchiato', 4500, 'Coffee', 'caramel_macchiato.png', 'Sweet caramel macchiato'),
+('Cookie', 2000, 'Dessert', 'cookie.png', 'Delicious cookie to go with your coffee'),
+('Grapefruit Ade', 4500, 'Beverage', 'grapefruit_ade.png', 'Refreshing grapefruit ade'),
+('Green Tea Latte', 4500, 'Tea', 'greentea_latte.png', 'Creamy green tea latte'),
+('Lemonade', 4000, 'Beverage', 'lemonade.png', 'Fresh and tangy lemonade'),
+('Mocha Latte', 4500, 'Coffee', 'mocha_latte.png', 'Rich mocha with a hint of chocolate'),
+('White Mocha Latte', 4700, 'Coffee', 'white_mocha_latte.png', 'Creamy white mocha latte with a sweet finish');
+
 
 
 INSERT INTO Orders (user_id, total_price, order_status, used_point)
 VALUES 
-(1, 7000, '완료', 100),
-(2, 3000, '준비중', 0),
-(3, 4000, '취소', 50);
+(1, 7000, 'Y', 100),
+(2, 3000, 'N', 0),
+(3, 4000, 'C', 50);
 
 
 INSERT INTO OrderDetails (order_id, menu_id, quantity)
@@ -29,20 +37,86 @@ VALUES
 (3, 2, 1);
 
 
-INSERT INTO ShoppingCart (user_id, menu_id, quantity)
-VALUES 
-(1, 3, 2),
-(2, 2, 1),
-(3, 1, 3);
+-- INSERT INTO ShoppingCart (user_id, menu_id, quantity)
+-- VALUES 
+-- (1, 3, 2),
+-- (2, 2, 1),
+-- (3, 1, 3);
 
 
-INSERT INTO MenuOptions (menu_id, name, price, is_required)
-VALUES 
-(1, 'Extra Shot', 500, TRUE),
-(1, 'Soy Milk', 300, FALSE),
-(2, 'Whipped Cream', 200, FALSE),
-(3, 'Honey', 400, FALSE);
+INSERT INTO MenuOptions (category, name, price, is_required) VALUES
+('Size', 'R', 0, TRUE),
+('Size', 'L', 500, TRUE),
+('Hot/Ice', 'Hot', 0, TRUE),
+('Hot/Ice', 'Ice', 0, TRUE),
+('Option', '시럽추가', 500, FALSE),
+('Option', '휘핑추가', 300, FALSE),
+('Option', '샷 추가', 500, FALSE);
 
+INSERT INTO MenuOptionMapping (menu_id, option_id) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6),
+(2, 7),
+(3, 1),
+(3, 2),
+(3, 3),
+(3, 4),
+(3, 5),
+(3, 6),
+(3, 7),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(4, 5),
+(4, 6),
+(4, 7),
+(6, 1),
+(6, 2),
+(6, 3),
+(6, 4),
+(6, 5),
+(6, 6),
+(6, 7),
+(7, 1),
+(7, 2),
+(7, 3),
+(7, 4),
+(7, 5),
+(7, 6),
+(7, 7),
+(8, 1),
+(8, 2),
+(8, 3),
+(8, 4),
+(8, 5),
+(8, 6),
+(8, 7),
+(9, 1),
+(9, 2),
+(9, 3),
+(9, 4),
+(9, 5),
+(9, 6),
+(9, 7),
+(10, 1),
+(10, 2),
+(10, 3),
+(10, 4),
+(10, 5),
+(10, 6),
+(10, 7);
 
 INSERT INTO OrderOptions (order_detail_id, option_id)
 VALUES 
